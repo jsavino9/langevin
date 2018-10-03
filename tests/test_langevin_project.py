@@ -1,20 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `langevin_project` package."""
+"""Tests for `example2` package."""
 
 import pytest
-
-from click.testing import CliRunner
-
+import os
+import numpy as np
 from langevin_project import langevin_project
-from langevin_project import cli
-
+import argparse
 
 @pytest.fixture
 def response():
     """Sample pytest fixture.
-
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
     # import requests
@@ -26,13 +23,34 @@ def test_content(response):
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
+def test_euler():
+	t,f = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
+	assert len(t) == len(f[0])
 
-def test_command_line_interface():
-    """Test the CLI."""
-    runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'langevin_project.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+def test_langevin():
+	dxdt,dvdt = langevin_project.langevin(0,[0.0,1.0],300,0.1,0.1)
+	assert type(dxdt) == float
+	assert type(dvdt) == float
+	bool = (dvdt != -dxdt*0.1)
+	assert bool
+
+
+def test_plot():
+	t,f = t,f = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
+	langevin_project.plotdata(t,f)
+	assert os.path.exists('trajectory.png')
+
+def test_hist():
+	langevin_project.plothistogram(300,10,0.1,0,0,0.1,wallsize=5)
+	assert os.path.exists('histogram.png')
+
+def test_write():
+	t,f = t,f = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
+	langevin_project.fileprint(t,f)	
+	a = np.loadtxt('output.txt', delimiter=',')
+	assert os.path.exists('output.txt')
+	assert a[-1][0] == len(t)-1
+
+def test_args():
+	T,tf,ts,x0,v0,gamme = langevin_project.getargs()
+	assert T == None	
