@@ -18,6 +18,9 @@ Langevin Project
      :target: https://pyup.io/repos/github/jsavino9/langevin_project/
      :alt: Updates
 
+.. image:: https://coveralls.io/repos/github/jsavino9/langevin/badge.svg?branch=master
+	:target: https://coveralls.io/github/jsavino9/langevin?branch=master
+
 
 
 Langevin project for CHE 477
