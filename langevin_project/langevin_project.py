@@ -87,11 +87,12 @@ def plotdata(t,f):
     plt.savefig("trajectory.png") #saves figure to trajectory.png
     plt.clf() #clears the figure from matplotlib's cache
 
-def plothistogram(T,tf,ts,x0,v0,gamma,wallsize=5):
+def runtrials(T,tf,ts,x0,v0,gamma,wallsize=5,runs=100):
     '''
     Description: plots histogram detailing the the amount of time it takes a particle to hit a wall over a given
-    number of runs.  also saves data from last trial that hit wall and passes it into plotdata() and fileprint()
-    so that these can display data that hit a wall.
+    number of runs (default is 100).  also saves data from last trial that hit wall and passes it into plotdata() and fileprint()
+    so that these can display data that hit a wall.  when the function is done, it prints the final position, time, and velocity
+    for a successful run.
 
     arguments
     T: the temperature of the system.  float or int.
@@ -101,11 +102,12 @@ def plothistogram(T,tf,ts,x0,v0,gamma,wallsize=5):
     v0: initial value for v.  float or int.
     gamma: dampening coefficient.  float or int.
     wallsize: the "wall"  when the particle reaches this position, the simulation ends.  default is 5.
-
+    runs: the number of runs to be completed.  int.  default is 100.
 
     saves figure as histogram.png
+    prints successful run to output.txt
+    plots successful trajectory to trajectory.png
     '''
-    runs = 100 #defines the number of runs for the histogram
     times = [] #creates array to hold times
     for i in range(runs): #loop to run euler function "runs" number of times
         t,f,hitwall = euler(langevin,0,tf,ts,[x0,v0],T,gamma) #run the euler function on the langevin function
@@ -119,8 +121,9 @@ def plothistogram(T,tf,ts,x0,v0,gamma,wallsize=5):
     plt.title('histogram of run times to hit wall')
     plt.savefig("histogram.png") #save the figure to histogram.png
     plt.clf() #clears matplotlib figure so images don't overlap
-    fileprint(t,f) #prints successful run to 
-    plotdata(t,f) #plots data to graph
+    fileprint(t_r,f_r) #prints successful run to output.txt
+    plotdata(t_r,f_r) #plots data on graph and saves to trajectory.png
+    print("The final position is ", f_r[0][-1], "at time ", t_r[-1], "with velocity ", f_r[1][-1])
 
 def fileprint(t,f):
     '''
@@ -178,7 +181,7 @@ def main():
     '''
     T,tf,ts,x0,v0,gamma = getargs() #get command line arguments for variables
     t,f,hitwall = euler(langevin,0,tf,ts,[x0,v0],T,gamma) #get time, position, and velocity from euler function
-    plothistogram(T,tf,ts,x0,v0,gamma) #plot and save histogram
+    runtrials(T,tf,ts,x0,v0,gamma,runs=100) #plot and save histogram
 
 if __name__ == '__main__':
 	main() #run main
