@@ -39,22 +39,25 @@ def test_langevin():
 
 
 def test_plot():
-	os.remove('trajectory.png')
+	if os.path.exists('trajectory.png'):
+		os.remove('trajectory.png')
 	t,f,hitwall = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
 	langevin_project.plotdata(t,f)
 	assert os.path.exists('trajectory.png')
 
-def test_hist():
-	os.remove('trajectory.png')
-	os.remove('histogram.png')
-	os.remove('output.txt')
+def test_trials():
+	if os.path.exists('trajectory.png') and os.path.exists('histogram.png') and os.path.exists('output.txt'):
+		os.remove('trajectory.png')
+		os.remove('histogram.png')
+		os.remove('output.txt')
 	langevin_project.runtrials(300,10,0.1,0,0,0.1,wallsize=5,runs=100)
 	assert os.path.exists('histogram.png')
 	assert os.path.exists('trajectory.png')
 	assert os.path.exists('output.txt')
 
 def test_write():
-	os.remove('output.txt')
+	if os.path.exists('output.png'):
+		os.remove('output.txt')
 	t,f,hitwall = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
 	langevin_project.fileprint(t,f)	
 	a = np.loadtxt('output.txt', delimiter=',')
@@ -67,9 +70,10 @@ def test_args():
 	assert ts == 0.1
 
 def test_main():
-	os.remove('trajectory.png')
-	os.remove('output.txt')
-	os.remove('histogram.png')
+        if os.path.exists('trajectory.png') and os.path.exists('histogram.png') and os.path.exists('output.txt'):
+                os.remove('trajectory.png')
+                os.remove('histogram.png')
+                os.remove('output.txt')
 	langevin_project.main()
 	assert os.path.exists('trajectory.png')
 	assert os.path.exists('output.txt')
