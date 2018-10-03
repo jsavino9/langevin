@@ -8,10 +8,22 @@ python:
   - 2.7
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
-
+install: 
+- pip install coveralls
+- python setup.py install
 # Command to run tests, e.g. python setup.py test
-script: tox
+
+before_install:
+- pip install coverage
+- pip install matplotlib
+- sudo apt-get install -qq python-numpy python-scipy python-matplotlib
+
+script:
+- coverage run --source=langevin_project setup.py test
+- coverage report -m
+
+after_success: coveralls
+language: python
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
@@ -25,5 +37,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: jsavino9/langevin_project
+    repo: jsavino9/example2
     python: 3.6
