@@ -23,16 +23,22 @@ Langevin Project
 
 * Free software: MIT license
 
---Installation Instructions--
+===============================
+Installation Instructions
+===============================
 
 This program is intended to be run on Python 3.
 
 Required packages: argparse, matplotlib, numpy
+
 *packages can be installed using "!pip install [package]"*
 
 After downloading the required packages, go to the repository home page https://github.com/jsavino9/langevin. Click clone/download, and click "download as zip".  An alternative option is to clone the repository.
 
---Running the program--
+==========================
+Running the program
+==========================
+
 
 Navigate to the source directory at ../langevin_project/langevin_project/
 
@@ -40,16 +46,24 @@ Run the program by typing python langevin_project.py --arguments
 
 It is also possible to run the program by using the bash script provided.  Use sh run.sh.  Arguments can be edited via a text editor.
 
-*Available Arguments*
+Available Arguments
+------------------------
+
 --Temperature: The temperature of the system, unitless.  *Type:* Float; *Default:* 300
+
 --total_time: The total time that the simulation runs.  *Type:* Float; *Default:* 1000
+
 --time_step: The time step to increment the integrator at.  *Type:* Float *Default:* 0.1
+
 --initial_position: The starting position for the particle. *Type:* Float *Default:* 0.0
+
 --initial_velocity: The starting velocity for the particle.  *Type:* Float *Default:* 0.0
+
 --damping_coefficient: The coefficient for the drag force.  *Type:* Float *Default:* 0.1
 
 
---Output--
+Outputs
+---------------------------
 
 Credits
 -------
