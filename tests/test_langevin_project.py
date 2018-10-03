@@ -8,6 +8,7 @@ import os
 import numpy as np
 from langevin_project import langevin_project
 import argparse
+import sys
 
 @pytest.fixture
 def response():
@@ -52,5 +53,12 @@ def test_write():
 	assert a[-1][0] == len(t)-1
 
 def test_args():
-	T,tf,ts,x0,v0,gamme = langevin_project.getargs()
-	assert T == None	
+	T,tf,ts,x0,v0,gamma = langevin_project.getargs()
+	assert T == 300
+	assert ts == 0.1
+
+def test_main():
+	langevin_project.main()
+	assert os.path.exists('trajectory.png')
+	assert os.path.exists('output.txt')
+	assert os.path.exists('histogram.png')

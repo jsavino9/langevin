@@ -59,12 +59,12 @@ def fileprint(t,f):
 
 def getargs():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--temperature", help="Temperature of the system", type=float)
-    parser.add_argument("--total_time", help="Temperature of the system", type=float)
-    parser.add_argument("--time_step", help="Temperature of the system", type=float)
-    parser.add_argument("--initial_position", help="Temperature of the system", type=float)
-    parser.add_argument("--initial_velocity", help="Temperature of the system", type=float)
-    parser.add_argument("--damping_coefficient", help="Temperature of the system", type=float)
+    parser.add_argument("--temperature", help="Temperature of the system", default=300, type=float)
+    parser.add_argument("--total_time", help="Temperature of the system", default=10, type=float)
+    parser.add_argument("--time_step", help="Temperature of the system", default=0.1, type=float)
+    parser.add_argument("--initial_position", help="Temperature of the system", default=0, type=float)
+    parser.add_argument("--initial_velocity", help="Temperature of the system", default=0, type=float)
+    parser.add_argument("--damping_coefficient", help="Temperature of the system", default=0.1, type=float)
     args = parser.parse_args()
     T = args.temperature
     tf = args.total_time
@@ -81,4 +81,5 @@ def main():
     plotdata(t,f)
     plothistogram(T,tf,ts,x0,v0,gamma)
 
-main()
+if __name__ == '__main__':
+	main()
