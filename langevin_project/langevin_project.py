@@ -80,8 +80,9 @@ def plotdata(t,f):
     saves figure as trajectory.png in run directory 
     '''
     plt.plot(t,f[0]) #plots the position
-    plt.xlabel('time')
-    plt.ylabel('position')
+    plt.xlabel('time') #x label
+    plt.ylabel('position') #y label
+    plt.title('trajectory of particle')
     #plt.plot(t,f[1]) #plots the velocity
     plt.savefig("trajectory.png") #saves figure to trajectory.png
     plt.clf() #clears the figure from matplotlib's cache
@@ -89,7 +90,8 @@ def plotdata(t,f):
 def plothistogram(T,tf,ts,x0,v0,gamma,wallsize=5):
     '''
     Description: plots histogram detailing the the amount of time it takes a particle to hit a wall over a given
-    number of runs
+    number of runs.  also saves data from last trial that hit wall and passes it into plotdata() and fileprint()
+    so that these can display data that hit a wall.
 
     arguments
     T: the temperature of the system.  float or int.
@@ -109,12 +111,16 @@ def plothistogram(T,tf,ts,x0,v0,gamma,wallsize=5):
         t,f,hitwall = euler(langevin,0,tf,ts,[x0,v0],T,gamma) #run the euler function on the langevin function
         if hitwall: #if it hits wall, then add the times
             times.append(t[-1])
-    plt.hist(times) #plot the histogram
-    plt.xlabel('time to hit wall')
-    plt.ylabel('number of trials')
+            t_r = t #get time for latest successful run
+            f_r = f #get position and velocity for latest successful run
+    plt.hist(times, bins = 'auto') #plot the histogram
+    plt.xlabel('time to hit wall') #x label
+    plt.ylabel('frequency') #y label
+    plt.title('histogram of run times to hit wall')
     plt.savefig("histogram.png") #save the figure to histogram.png
-    plt.clf()
-
+    plt.clf() #clears matplotlib figure so images don't overlap
+    fileprint(t,f) #prints successful run to 
+    plotdata(t,f) #plots data to graph
 
 def fileprint(t,f):
     '''
@@ -172,8 +178,6 @@ def main():
     '''
     T,tf,ts,x0,v0,gamma = getargs() #get command line arguments for variables
     t,f,hitwall = euler(langevin,0,tf,ts,[x0,v0],T,gamma) #get time, position, and velocity from euler function
-    fileprint(t,f) #print data to text file
-    plotdata(t,f) #plot and save trajectory
     plothistogram(T,tf,ts,x0,v0,gamma) #plot and save histogram
 
 if __name__ == '__main__':
