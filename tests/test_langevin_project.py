@@ -25,7 +25,7 @@ def test_content(response):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 def test_euler():
-	t,f = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
+	t,f,hitwall = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
 	assert len(t) == len(f[0])
 
 def test_langevin():
@@ -37,7 +37,7 @@ def test_langevin():
 
 
 def test_plot():
-	t,f = t,f = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
+	t,f,hitwall = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
 	langevin_project.plotdata(t,f)
 	assert os.path.exists('trajectory.png')
 
@@ -46,7 +46,7 @@ def test_hist():
 	assert os.path.exists('histogram.png')
 
 def test_write():
-	t,f = t,f = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
+	t,f,hitwall = langevin_project.euler(langevin_project.langevin,0,10,0.1,[0,0],300,0.1,wallsize=5)
 	langevin_project.fileprint(t,f)	
 	a = np.loadtxt('output.txt', delimiter=',')
 	assert os.path.exists('output.txt')
