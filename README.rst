@@ -20,7 +20,7 @@ Required packages: argparse, matplotlib, numpy
 
 *packages can be installed using "!pip install [package]"*
 
-After downloading the required packages, go to the repository home page https://github.com/jsavino9/langevin. Click clone/download, and click "download as zip".  An alternative option is to clone the repository.
+After downloading the required packages, go to the repository home page https://github.com/jsavino9/langevin. Click clone/download, and click "download as zip" once the file is downloaded, it can be unzipped.  An alternative option is to clone the repository.
 
 ==========================
 Running the program
@@ -29,9 +29,9 @@ Running the program
 
 Navigate to the source directory at ../langevin_project/langevin_project/
 
-Run the program by typing python langevin_project.py --arguments
+Run the program by typing "python langevin_project.py --arguments" in the command line (terminal, powershell).  It can also be done through a python interpreter, where you'd just type "langevin_project.py --arguments".  In these examples "--arguments" refers to the arguments described below.
 
-It is also possible to run the program by using the bash script provided.  Use sh run.sh.  Arguments in run.sh can be edited via a text editor.
+It is also possible to run the program by using the bash script provided.  Type "sh run.sh" in the command line.  Arguments in run.sh can be edited via a text editor.
 
 
 Available Arguments
