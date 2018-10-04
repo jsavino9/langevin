@@ -180,7 +180,7 @@ def main():
     then saves the histogram and trajectories as png, and the output arrays as a comma delimited txt file.
     '''
     T,tf,ts,x0,v0,gamma = getargs() #get command line arguments for variables
-    t,f,hitwall = euler(langevin,0,tf,ts,[x0,v0],T,gamma) #get time, position, and velocity from euler function
+    #t,f,hitwall = euler(langevin,0,tf,ts,[x0,v0],T,gamma) #get time, position, and velocity from euler function for single run
     runtrials(T,tf,ts,x0,v0,gamma,runs=100) #plot and save histogram
 
 if __name__ == '__main__':
