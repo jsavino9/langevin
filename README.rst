@@ -49,7 +49,7 @@ Available Arguments
 
 --damping_coefficient: The coefficient for the drag force.  *Type:* Float *Default:* 0.1
 
-note: The starting position defaults to 0.0, but this is not recommended, as half of the trajectories will have no useful data, and the histogram will be skewed, as 50% of the runs hit the wall on the second time step.  Wall size can be adjusted in the code, and also 
+note: The starting position defaults to 0.0, but this is not recommended because half of the trajectories will have no useful data, and the histogram will be skewed, since 50% of the runs hit the wall on the second time step.  Wall size can be adjusted in the code.
 
 note 2: All inputs are in reduced units.
 
